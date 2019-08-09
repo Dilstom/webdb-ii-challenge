@@ -48,6 +48,17 @@ router.delete('/:id', async (req, res) => {
  }
 });
 
+router.put('/:id', async (req, res) => {
+ try {
+  const { id } = req.params;
+  const carData = req.body;
+  const updated = await carsDb('cars')
+   .update(carData)
+   .where({ id });
+  res.status(201).json({ message: 'updated successfully', updated });
+ } catch (err) {
+  res.status(500).json({ message: 'Failed to update the record' });
+ }
 });
 
 module.exports = router;
